@@ -39,11 +39,11 @@ public class EvidenceService {
     private Credentials researcher;
 
 
-    public void deployContract(String password, String evidenceName, String hash, String secretKey) throws Exception {
+    public Evidence deployContract(String password, String evidenceName, String hash, String secretKey) throws Exception {
         owner = loadWallet(password);
         defaultAdmin = loadWallet(password);
         researcher = loadWallet(password);
-        contractService.deployContract(password, evidenceName, hash, secretKey, owner, defaultAdmin);
+        return contractService.deployContract(password, evidenceName, hash, secretKey, owner, defaultAdmin);
     }
 
 

@@ -104,20 +104,20 @@ public class UserController {
     @PostMapping("/file")
     public String deployEvidenceContract(MultipartFile evidence, String secretKey) throws Exception {
         String hash = DigestUtils.md5DigestAsHex(evidence.getBytes()).toUpperCase();
-        evidenceService.deployContract("123456", evidence.getOriginalFilename(), hash, secretKey);
-        return "部署成功";
+        Evidence result = evidenceService.deployContract("123456", evidence.getOriginalFilename(), hash, secretKey);
+        return "证据部署成功  合约地址（证据编号）：" + result.getContractAddress();
     }
 
     @ResponseBody
-    @GetMapping("/evidenceInfo")
-    public String getEvidenceInfo(@RequestParam String contractAddress) {
+    @PostMapping("/evidenceInfo")
+    public String getEvidenceInfo(String contractAddress) {
         String info = null;
         try {
             info = evidenceService.queryEvidenceInfo(contractAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return info;
+        return "当前区块保存的数据指纹信息为："+info;
     }
 
     @ResponseBody
@@ -136,7 +136,7 @@ public class UserController {
     public List<Evidence.OwnerApprovedEventResponse> approved(@RequestParam String contractAddress) {
         List<Evidence.OwnerApprovedEventResponse> approved = null;
 
-            approved = evidenceService.approved(contractAddress);
+        approved = evidenceService.approved(contractAddress);
 
         return approved;
     }
@@ -145,7 +145,7 @@ public class UserController {
     @GetMapping("/reset")
     public String reset(@RequestParam String contractAddress, @RequestParam String key) {
 
-            evidenceService.resetKey(contractAddress, key);
+        evidenceService.resetKey(contractAddress, key);
 
         return "重置成功";
     }

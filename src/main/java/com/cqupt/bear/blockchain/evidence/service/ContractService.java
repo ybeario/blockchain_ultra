@@ -26,7 +26,7 @@ public class ContractService {
 
     private Credentials credentials;
 
-    public boolean deployContract(String password, String evidenceName, String hash, String secretKey,
+    public Evidence deployContract(String password, String evidenceName, String hash, String secretKey,
                                   Credentials owner, Credentials admin
     ) throws Exception {
         Evidence evidence = Evidence.deploy(web3j, owner, gasProvider, evidenceName, hash, secretKey,
@@ -36,7 +36,7 @@ public class ContractService {
         logger.info("EvidenceAddress: {} , valid :  {}, EvidenceName: {} , EvidenceHash: {}",
                 evidence.getContractAddress(),
                 evidence.isValid(), evidenceName, hash);
-        return true;
+        return evidence;
     }
 
 
