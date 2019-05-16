@@ -48,7 +48,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1>恭喜，上传成功！！</h1>
+                <h1 th:text=${evidenceName}>
+                </h1>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -57,8 +58,8 @@
                 <p th:text=${md5} class="text-success"></p>
             </div>
             <div class="col-lg-6 col-6 p-4"><i class="d-block fa fa-stop-circle-o fa-3x mb-2 text-muted"></i>
-                <h4>交易ID</h4>
-                <p th:text=${transactionId} class="text-success"></p>
+                <h4>区块地址</h4>
+                <p th:text=${ContractAddress} class="text-success"></p>
             </div>
         </div>
     </div>
@@ -67,7 +68,7 @@
     <div class="container ">
         <div class="row ">
             <div class="col-md-12 ">
-                <center><a class="btn btn-primary w-25" th:href=@{'query?txHash='+${transactionId}}
+                <center><a class="btn btn-primary w-25" href="/user/queryPage"}
                            style="	box-shadow: 0px 0px 4px  black;	text-shadow: 0px 0px 4px black;">查询详情</a>
                 </center>
             </div>

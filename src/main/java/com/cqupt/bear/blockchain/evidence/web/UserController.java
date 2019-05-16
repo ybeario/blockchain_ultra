@@ -33,12 +33,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    EvidenceService evidenceService;
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     @Qualifier("web3jBlockServiceImpl")
     private BlockService service;
-    @Autowired
-    EvidenceService evidenceService;
 
     //  @PostMapping("/file")
     public ModelAndView upload(MultipartFile evidence, ModelAndView modelAndView, String identityCard, String telephone,
@@ -59,7 +59,7 @@ public class UserController {
             e.printStackTrace();
         }
         logger.info(transaction.getId());
-        EvidenceInfo evidenceInfo = new EvidenceInfo(md5, "0001", transaction.getId().toString(), "0005", transaction);
+        EvidenceInfo evidenceInfo = new EvidenceInfo(md5, "0001", transaction.getId(), "0005", transaction);
         logger.info("文件：\"" + originalFilename + "\"成功写入，" + "相关信息为：" + evidenceInfo.toString());
         String json = JsonUtils.toJson(evidenceInfo);
         logger.info(json);
@@ -75,6 +75,10 @@ public class UserController {
     @GetMapping("/query")
     public ModelAndView queryBlock(String txHash, ModelAndView modelAndView) throws JsonProcessingException {
         EvidenceInfo info = null;
+        if (txHash == null) {
+            modelAndView.setViewName("/user/queryPage");
+            return modelAndView;
+        }
         if (txHash.startsWith("\"")) {
             txHash = txHash.substring(1, txHash.length() - 1);
         }
@@ -95,17 +99,25 @@ public class UserController {
 
     @PostMapping("/query")
     public ModelAndView query(String txHash, ModelAndView modelAndView) throws JsonProcessingException {
+        if (txHash == null) {
+            modelAndView.setViewName("/user/queryPage");
+            return modelAndView;
+        }
         ModelAndView result = queryBlock(txHash, modelAndView);
         return result;
     }
 
 
-    @ResponseBody
     @PostMapping("/file")
-    public String deployEvidenceContract(MultipartFile evidence, String secretKey) throws Exception {
+    public ModelAndView deployEvidenceContract(MultipartFile evidence, String secretKey, ModelAndView modelAndView) throws Exception {
         String hash = DigestUtils.md5DigestAsHex(evidence.getBytes()).toUpperCase();
         Evidence result = evidenceService.deployContract("123456", evidence.getOriginalFilename(), hash, secretKey);
-        return "证据部署成功  合约地址（证据编号）：" + result.getContractAddress();
+        System.out.println(result.getContractAddress());
+        modelAndView.addObject("md5", hash);
+        modelAndView.addObject("ContractAddress", result.getContractAddress());
+        modelAndView.addObject("evidenceName", "证据'"+evidence.getOriginalFilename()+"'上传成功！");
+        modelAndView.setViewName("user/uploadSuccess");
+        return modelAndView;
     }
 
     @ResponseBody
@@ -117,7 +129,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "当前区块保存的数据指纹信息为："+info;
+        return "当前区块保存的数据指纹信息为：" + info;
     }
 
     @ResponseBody
