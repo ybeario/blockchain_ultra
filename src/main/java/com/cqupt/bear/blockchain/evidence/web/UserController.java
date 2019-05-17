@@ -120,17 +120,20 @@ public class UserController {
         return modelAndView;
     }
 
-    @ResponseBody
     @GetMapping("/evidenceInfo")
     @PostMapping("/evidenceInfo")
-    public String getEvidenceInfo(String contractAddress) {
+    public ModelAndView getEvidenceInfo(String contractAddress,ModelAndView modelAndView) {
         String info = null;
+        Evidence evidence=null;
         try {
-            info = evidenceService.queryEvidenceInfo(contractAddress);
+            evidence = evidenceService.queryEvidenceInfo(contractAddress);
+            info=evidence.getContractAddress();
+            modelAndView.addObject("md5",evidence.getContractAddress());
+            modelAndView.setViewName("user/queryResult");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "当前区块保存的数据指纹信息为：" + info;
+        return modelAndView;
     }
 
     @ResponseBody

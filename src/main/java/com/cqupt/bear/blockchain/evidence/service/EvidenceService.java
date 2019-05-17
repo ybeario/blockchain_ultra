@@ -46,7 +46,7 @@ public class EvidenceService {
     }
 
 
-    public String queryEvidenceInfo(String contractAddress) throws Exception {
+    public Evidence queryEvidenceInfo(String contractAddress) throws Exception {
         Credentials user = loadWallet("123456");
         Evidence evidence = loadContract(contractAddress, user);
         String info = null;
@@ -54,7 +54,7 @@ public class EvidenceService {
             info = evidence.queryEvidenceInfo().sendAsync().get();
             logger.info("证据编号: {} 证据指纹: {}", evidence.getContractAddress(), info);
         }
-        return info;
+        return evidence;
     }
 
     public String giveRightToResearcher(String contractAddress) {
