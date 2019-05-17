@@ -121,6 +121,7 @@ public class UserController {
     }
 
     @ResponseBody
+    @GetMapping("/evidenceInfo")
     @PostMapping("/evidenceInfo")
     public String getEvidenceInfo(String contractAddress) {
         String info = null;

@@ -80,47 +80,41 @@ public class Evidence extends Contract {
     public static final String FUNC_ADMIN = "admin";
 
     public static final Event ACCOUNTINFO_EVENT = new Event("AccountInfo",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            Arrays.asList(new TypeReference<Address>() {
             }, new TypeReference<Uint8>() {
             }));
-    ;
 
     public static final Event AUTHORIZED_EVENT = new Event("Authorized",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            Arrays.asList(new TypeReference<Address>() {
             }, new TypeReference<Uint8>() {
             }));
-    ;
 
     public static final Event ANALYZING_EVENT = new Event("Analyzing",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            Arrays.asList(new TypeReference<Address>() {
             }, new TypeReference<Utf8String>() {
             }, new TypeReference<Address>() {
             }, new TypeReference<Utf8String>() {
             }));
-    ;
 
     public static final Event ANALYZED_EVENT = new Event("Analyzed",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            Arrays.asList(new TypeReference<Address>() {
             }, new TypeReference<Utf8String>() {
             }, new TypeReference<Address>() {
             }));
-    ;
 
     public static final Event ACQUIRERESULT_EVENT = new Event("AcquireResult",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {
+            Arrays.asList(new TypeReference<Utf8String>() {
             }, new TypeReference<Bool>() {
             }, new TypeReference<Address>() {
             }, new TypeReference<Utf8String>() {
             }, new TypeReference<Address>() {
             }, new TypeReference<Uint8>() {
             }));
-    ;
 
     public static final Event OWNERAPPROVED_EVENT = new Event("OwnerApproved",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+            Arrays.asList(new TypeReference<Address>() {
             }, new TypeReference<Bool>() {
             }));
-    ;
 
 
     protected Evidence(String contractAddress, Web3j web3j, Credentials credentials,
@@ -136,8 +130,8 @@ public class Evidence extends Contract {
 
     public RemoteCall<String> name() {
         final Function function = new Function(FUNC_NAME,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Utf8String>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
@@ -145,87 +139,87 @@ public class Evidence extends Contract {
     public RemoteCall<TransactionReceipt> acquireAnalysisResult() {
         final Function function = new Function(
                 FUNC_ACQUIREANALYSISRESULT,
-                Arrays.<Type>asList(),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> approve() {
         final Function function = new Function(
                 FUNC_APPROVE,
-                Arrays.<Type>asList(),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> acquireKeyForResearch() {
         final Function function = new Function(
                 FUNC_ACQUIREKEYFORRESEARCH,
-                Arrays.<Type>asList(),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> giveRightToResearcher(String user) {
         final Function function = new Function(
                 FUNC_GIVERIGHTTORESEARCHER,
-                Arrays.<Type>asList(new Address(user)),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(new Address(user)),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> resetKey(String _key) {
         final Function function = new Function(
                 FUNC_RESETKEY,
-                Arrays.<Type>asList(new Utf8String(_key)),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(new Utf8String(_key)),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> lockAccount(String account) {
         final Function function = new Function(
                 FUNC_LOCKACCOUNT,
-                Arrays.<Type>asList(new Address(account)),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(new Address(account)),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> giveRightToAdmin(String user) {
         final Function function = new Function(
                 FUNC_GIVERIGHTTOADMIN,
-                Arrays.<Type>asList(new Address(user)),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(new Address(user)),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<String> queryEvidenceInfo() {
         final Function function = new Function(FUNC_QUERYEVIDENCEINFO,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Utf8String>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteCall<Boolean> ownerApproved() {
         final Function function = new Function(FUNC_OWNERAPPROVED,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Bool>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteCall<BigInteger> evidenceState() {
         final Function function = new Function(FUNC_EVIDENCESTATE,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Uint8>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<String> owner() {
         final Function function = new Function(FUNC_OWNER,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Address>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
@@ -233,25 +227,25 @@ public class Evidence extends Contract {
     public RemoteCall<TransactionReceipt> uploadAnalysisResult(String _AnalysisResult, String evidenceID, String _key) {
         final Function function = new Function(
                 FUNC_UPLOADANALYSISRESULT,
-                Arrays.<Type>asList(new Utf8String(_AnalysisResult),
+                Arrays.asList(new Utf8String(_AnalysisResult),
                         new Address(evidenceID),
                         new Utf8String(_key)),
-                Collections.<TypeReference<?>>emptyList());
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> unlockAccount(String account) {
         final Function function = new Function(
                 FUNC_UNLOCKACCOUNT,
-                Arrays.<Type>asList(new Address(account)),
-                Collections.<TypeReference<?>>emptyList());
+                Arrays.asList(new Address(account)),
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<Tuple2<BigInteger, BigInteger>> Users(String param0) {
         final Function function = new Function(FUNC_USERS,
-                Arrays.<Type>asList(new Address(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {
+                Arrays.asList(new Address(param0)),
+                Arrays.asList(new TypeReference<Uint8>() {
                 }, new TypeReference<Uint8>() {
                 }));
         return new RemoteCall<Tuple2<BigInteger, BigInteger>>(
@@ -268,16 +262,16 @@ public class Evidence extends Contract {
 
     public RemoteCall<BigInteger> creationTime() {
         final Function function = new Function(FUNC_CREATIONTIME,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Uint256>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<String> admin() {
         final Function function = new Function(FUNC_ADMIN,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Address>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
@@ -514,7 +508,7 @@ public class Evidence extends Contract {
     public static RemoteCall<Evidence> deploy(Web3j web3j, Credentials credentials,
                                               ContractGasProvider contractGasProvider, String _name, String _info,
                                               String _key, String _admin) {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new Utf8String(_name),
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(new Utf8String(_name),
                 new Utf8String(_info),
                 new Utf8String(_key),
                 new Address(_admin)));
@@ -524,7 +518,7 @@ public class Evidence extends Contract {
     public static RemoteCall<Evidence> deploy(Web3j web3j, TransactionManager transactionManager,
                                               ContractGasProvider contractGasProvider, String _name, String _info,
                                               String _key, String _admin) {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new Utf8String(_name),
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(new Utf8String(_name),
                 new Utf8String(_info),
                 new Utf8String(_key),
                 new Address(_admin)));

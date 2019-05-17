@@ -24,16 +24,15 @@ import java.util.concurrent.ExecutionException;
  */
 @Service
 public class EvidenceService {
-    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     WalletService walletService;
     @Autowired
     ContractService contractService;
-    private Web3j web3j = Web3j.build(new HttpService());
     @Autowired
     @Qualifier("gasProviderImpl")
     GasProviderImpl gasProvider;
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    private Web3j web3j = Web3j.build(new HttpService());
     private Credentials owner;
     private Credentials defaultAdmin;
     private Credentials researcher;

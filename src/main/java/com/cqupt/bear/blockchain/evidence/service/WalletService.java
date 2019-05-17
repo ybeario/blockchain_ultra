@@ -25,8 +25,8 @@ import java.math.BigInteger;
  */
 @Service
 public class WalletService {
-    private Logger logger = LoggerFactory.getLogger(getClass());
     Web3j web3j = Web3j.build(new HttpService());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public String generateWallet(String password) throws Exception {
         //创建或读取账户

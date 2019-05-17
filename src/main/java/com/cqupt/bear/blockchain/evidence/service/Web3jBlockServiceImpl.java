@@ -15,6 +15,7 @@ import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Y.bear
@@ -34,7 +35,8 @@ public class Web3jBlockServiceImpl implements BlockService {
     public BlockchainTransaction upload(BlockchainTransaction trx) throws IOException {
         EthAccounts accounts = web3j.ethAccounts().send();
         Transaction transaction = Transaction.createEthCallTransaction(accounts.getAccounts().get(trx.getFromId()),
-                accounts.getAccounts().get(trx.getToId()), HexUtils.toHexString(trx.getData().getBytes("UTF-8")));
+                accounts.getAccounts().get(trx.getToId()),
+                HexUtils.toHexString(trx.getData().getBytes(StandardCharsets.UTF_8)));
         EthSendTransaction response = web3j.ethSendTransaction(transaction).send();
         if (response.getError() != null) {
             trx.setAccepted(false);

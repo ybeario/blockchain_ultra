@@ -20,10 +20,9 @@ import java.util.Optional;
  */
 @Service
 public class ContractService {
-    private Logger logger = LoggerFactory.getLogger(getClass());
     Web3j web3j = Web3j.build(new HttpService());
     GasProviderImpl gasProvider = new GasProviderImpl();
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private Credentials credentials;
 
     public Evidence deployContract(String password, String evidenceName, String hash, String secretKey,
