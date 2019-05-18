@@ -115,20 +115,20 @@ public class UserController {
         System.out.println(result.getContractAddress());
         modelAndView.addObject("md5", hash);
         modelAndView.addObject("ContractAddress", result.getContractAddress());
-        modelAndView.addObject("evidenceName", "证据'"+evidence.getOriginalFilename()+"'上传成功！");
+        modelAndView.addObject("evidenceName", "证据'" + evidence.getOriginalFilename() + "'上传成功！");
         modelAndView.setViewName("user/uploadSuccess");
         return modelAndView;
     }
 
     @GetMapping("/evidenceInfo")
     @PostMapping("/evidenceInfo")
-    public ModelAndView getEvidenceInfo(String contractAddress,ModelAndView modelAndView) {
-        String info = null;
-        Evidence evidence=null;
+    public ModelAndView getEvidenceInfo(String contractAddress, ModelAndView modelAndView) {
+
+        Evidence evidence = null;
         try {
             evidence = evidenceService.queryEvidenceInfo(contractAddress);
-            info=evidence.getContractAddress();
-            modelAndView.addObject("md5",evidence.getContractAddress());
+            modelAndView.addObject("contractAddress", evidence.getContractAddress());
+            modelAndView.addObject("md5", evidence.queryEvidenceInfo().send().toUpperCase());
             modelAndView.setViewName("user/queryResult");
         } catch (Exception e) {
             e.printStackTrace();

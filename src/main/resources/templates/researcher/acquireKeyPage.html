@@ -22,7 +22,7 @@
                     <a class="nav-link text-light" href="#"><b>主页</b></a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="/user"><b>电子证据保全</b></a>
+                    <a class="nav-link" href="#menu"><b>电子证据保全</b></a>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="#venue"><b>白皮书</b></a>
@@ -47,9 +47,9 @@
     <div class="container">
         <div class="row">
             <div class="mx-auto col-lg-6 col-10">
-                <h1>查询证据信息</h1>
-                <p class="mb-3">我们承诺保障您的电子证据安全，可靠，不可篡改，同时为您的隐私提供全方位保护</p>
-                <form class="text-left" method="post" th:action="@{/user/evidenceInfo}">
+                <h1>提取密钥</h1>
+                <p class="mb-3">密钥用于提取完整电子证据信息</p>
+                <form class="text-left" method="post" th:action="@{/researcher/acquireKey}">
                     <div class="form-group"><label for="form16">证据ID</label> <input class="form-control" type="text"
                                                                                     id="form16" required="required"
                                                                                     name="contractAddress" placeholder="0x....">
