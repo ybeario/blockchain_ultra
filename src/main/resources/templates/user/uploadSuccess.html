@@ -59,7 +59,17 @@
             </div>
             <div class="col-lg-6 col-6 p-4"><i class="d-block fa fa-stop-circle-o fa-3x mb-2 text-muted"></i>
                 <h4>区块地址</h4>
-                <p th:text=${ContractAddress} class="text-success"></p>
+                <p th:text=${contractAddress} class="text-success"></p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-6 p-4"><i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
+                <h4><b>区块高度</b></h4>
+                <p th:text=${height} class="text-success"></p>
+            </div>
+            <div class="col-lg-6 col-6 p-4"><i class="d-block fa fa-stop-circle-o fa-3x mb-2 text-muted"></i>
+                <h4>交易Hash</h4>
+                <p th:text=${transactionsHash} class="text-success"></p>
             </div>
         </div>
     </div>
@@ -68,8 +78,9 @@
     <div class="container ">
         <div class="row ">
             <div class="col-md-12 ">
-                <center><a class="btn btn-primary w-25" th:href=@{'evidenceInfo?contractAddress='+${ContractAddress}}
-                           style="	box-shadow: 0px 0px 4px  black;	text-shadow: 0px 0px 4px black;">查询详情</a>
+                <center>
+                    <a class="btn btn-primary w-25" th:href=@{'query?txHash='+${transactionsHash}}
+                       style="	box-shadow: 0px 0px 4px  black;	text-shadow: 0px 0px 4px black;">交易详情</a>
                 </center>
             </div>
         </div>

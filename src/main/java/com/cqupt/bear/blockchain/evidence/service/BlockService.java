@@ -1,7 +1,7 @@
 package com.cqupt.bear.blockchain.evidence.service;
 
 import com.cqupt.bear.blockchain.evidence.dto.BlockchainTransaction;
-import com.cqupt.bear.blockchain.evidence.dto.EvidenceInfo;
+import org.web3j.protocol.core.methods.response.EthTransaction;
 
 /**
  * @author Y.bear
@@ -12,5 +12,5 @@ public interface BlockService {
 
     BlockchainTransaction upload(BlockchainTransaction transaction) throws Exception;
 
-    EvidenceInfo query(String blockHash) throws Exception;
+    EthTransaction query(String blockHash) throws Exception;
 }

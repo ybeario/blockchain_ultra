@@ -1,7 +1,6 @@
 package com.cqupt.bear.blockchain.evidence.service;
 
 import com.cqupt.bear.blockchain.evidence.dto.BlockchainTransaction;
-import com.cqupt.bear.blockchain.evidence.dto.EvidenceInfo;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,16 +53,8 @@ public class Web3jBlockServiceImpl implements BlockService {
     }
 
     @Override
-    public EvidenceInfo query(String txHash) throws Exception {
+    public EthTransaction query(String txHash) throws Exception {
         EthTransaction transaction = web3j.ethGetTransactionByHash(txHash).send();
-        String data = new String(HexUtils.fromHexString(transaction.getResult().getInput().substring(2)));
-        String blockHash = transaction.getResult().getBlockHash();
-        String height = transaction.getResult().getBlockNumber().toString();
-        LOGGER.info("txHash:" + txHash + "----" + "evidenceInput:" + data);
-        BlockchainTransaction blockchainTransaction = new BlockchainTransaction();
-        blockchainTransaction.setData(data);
-        EvidenceInfo evidenceInfo = new EvidenceInfo(data, blockHash, txHash, height);
-        evidenceInfo.setTransaction(blockchainTransaction);
-        return evidenceInfo;
+        return transaction;
     }
 }

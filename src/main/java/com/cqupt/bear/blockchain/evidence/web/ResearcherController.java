@@ -21,9 +21,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/researcher")
 public class ResearcherController {
-    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     EvidenceService evidenceService;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @ResponseBody
     @PostMapping("/acquireKey")
@@ -31,7 +31,7 @@ public class ResearcherController {
         List<Evidence.AnalyzingEventResponse> analyzingEventResponses =
                 null;
 
-            analyzingEventResponses = evidenceService.acquireSecretKey(contractAddress);
+        analyzingEventResponses = evidenceService.acquireSecretKey(contractAddress);
 
         return analyzingEventResponses;
     }
@@ -40,8 +40,7 @@ public class ResearcherController {
     @PostMapping("/uploadResult")
     public String uploadResult(String result, String secretKey, String contractAddress) {
 
-            evidenceService.uploadAnalysisResult(contractAddress, result, secretKey);
-
+        evidenceService.uploadAnalysisResult(contractAddress, result, secretKey);
 
 
         return "结果上传成功";

@@ -38,33 +38,52 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1>证据详情</h1>
+                <h1>交易详情</h1>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-3 col-6 p-4">
                 <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
                 <h4>
-                    <b>文件MD5</b>
+                    <b>提交者钱包</b>
                 </h4>
-                <p th:text="${md5}" class="text-success"></p>
+                <p th:text="${from}" class="text-success"></p>
             </div>
             <div class="col-lg-3 col-6 p-4">
 
             </div>
             <div class="col-lg-3 col-6 p-4 ">
                 <i class="d-block fa fa-stop-circle-o fa-3x mb-2 text-muted"></i>
-                <h4>证据ID</h4>
-                <p th:text="${contractAddress}" class="text-success"></p>
+                <h4>交易Gas</h4>
+                <p th:text="${gas}" class="text-success"></p>
             </div>
         </div>
         <div class="row justify-content-center ">
             <div class="col-lg-3 col-6 p-4">
                 <i class="d-block fa fa-circle-o fa-3x mb-2 text-muted"></i>
                 <h4>
+                    <b>BlockHash</b>
+                </h4>
+                <p th:text="${blockHash}" class="text-success"></p>
+            </div>
+            <div class="col-lg-3 col-6 p-4">
+
+            </div>
+            <div class="col-lg-3 col-6 p-4">
+                <i class="d-block fa fa-stop-circle fa-3x mb-2 text-muted"></i>
+                <h4>
                     <b>区块高度</b>
                 </h4>
                 <p th:text="${height}" class="text-success"></p>
+            </div>
+        </div>
+        <div class="row justify-content-center ">
+            <div class="col-lg-3 col-6 p-4">
+                <i class="d-block fa fa-circle-o fa-3x mb-2 text-muted"></i>
+                <h4>
+                    <b>gasPrice</b>
+                </h4>
+                <p th:text="${gasPrice}" class="text-success"></p>
             </div>
             <div class="col-lg-3 col-6 p-4">
 
@@ -74,11 +93,22 @@
                 <h4>
                     <b>交易Hash</b>
                 </h4>
-                <p th:text="${transactionId}" class="text-success"></p>
+                <p th:text="${hash}" class="text-success"></p>
             </div>
         </div>
     </div>
 </div>
+<div class="py-5 bg-light ">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-md-12 ">
+                <center>
+                    <a class="btn btn-primary w-25" href="/user"
+                       style="	box-shadow: 0px 0px 4px  black;	text-shadow: 0px 0px 4px black;">返回功能页</a>
+                </center>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Footer -->
 <div class="bg-light">

@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.web3j.protocol.core.methods.response.EthTransaction;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Y.bear
@@ -74,7 +77,7 @@ public class UserController {
 
     @GetMapping("/query")
     public ModelAndView queryBlock(String txHash, ModelAndView modelAndView) throws JsonProcessingException {
-        EvidenceInfo info = null;
+        EthTransaction transaction = null;
         if (txHash == null) {
             modelAndView.setViewName("/user/queryPage");
             return modelAndView;
@@ -84,15 +87,19 @@ public class UserController {
         }
         logger.info("查询txHash:" + txHash);
         try {
-            info = service.query(txHash);
+            transaction = service.query(txHash);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if (info != null) {
-            String evidenceInfo = JsonUtils.toJson(info);
-            modelAndView.addAllObjects(JsonUtils.toMap(evidenceInfo));
-            modelAndView.setViewName("user/queryResult");
+        if (transaction != null) {
+            modelAndView.addObject("from",transaction.getResult().getFrom().toUpperCase());
+            modelAndView.addObject("gas", transaction.getResult().getGas());
+            modelAndView.addObject("height",transaction.getResult().getBlockNumber().toString().toUpperCase());
+            modelAndView.addObject("blockHash",transaction.getResult().getBlockHash().toUpperCase());
+            modelAndView.addObject("hash",transaction.getResult().getHash());
+            modelAndView.addObject("gasPrice",transaction.getResult().getGasPrice());
+            modelAndView.setViewName("user/queryTxResult");
         }
         return modelAndView;
     }
@@ -112,22 +119,41 @@ public class UserController {
     public ModelAndView deployEvidenceContract(MultipartFile evidence, String secretKey, ModelAndView modelAndView) throws Exception {
         String hash = DigestUtils.md5DigestAsHex(evidence.getBytes()).toUpperCase();
         Evidence result = evidenceService.deployContract("123456", evidence.getOriginalFilename(), hash, secretKey);
+        Optional<TransactionReceipt> tr = result.getTransactionReceipt();
+
         System.out.println(result.getContractAddress());
+        modelAndView.addObject("height",tr.get().getBlockNumber().toString());
+        modelAndView.addObject("transactionsHash",tr.get().getTransactionHash());
         modelAndView.addObject("md5", hash);
-        modelAndView.addObject("ContractAddress", result.getContractAddress());
+        modelAndView.addObject("contractAddress", result.getContractAddress());
         modelAndView.addObject("evidenceName", "证据'" + evidence.getOriginalFilename() + "'上传成功！");
         modelAndView.setViewName("user/uploadSuccess");
         return modelAndView;
     }
 
     @GetMapping("/evidenceInfo")
-    @PostMapping("/evidenceInfo")
     public ModelAndView getEvidenceInfo(String contractAddress, ModelAndView modelAndView) {
 
         Evidence evidence = null;
         try {
             evidence = evidenceService.queryEvidenceInfo(contractAddress);
-            modelAndView.addObject("contractAddress", evidence.getContractAddress());
+            modelAndView.addObject("contractAddress", evidence.getContractAddress().toUpperCase());
+            modelAndView.addObject("md5", evidence.queryEvidenceInfo().send().toUpperCase());
+            modelAndView.setViewName("user/queryResult");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return modelAndView;
+    }
+
+
+    @PostMapping("/evidenceInfo")
+    public ModelAndView EvidenceInfo(String contractAddress, ModelAndView modelAndView) {
+
+        Evidence evidence = null;
+        try {
+            evidence = evidenceService.queryEvidenceInfo(contractAddress);
+            modelAndView.addObject("contractAddress", evidence.getContractAddress().toUpperCase());
             modelAndView.addObject("md5", evidence.queryEvidenceInfo().send().toUpperCase());
             modelAndView.setViewName("user/queryResult");
         } catch (Exception e) {

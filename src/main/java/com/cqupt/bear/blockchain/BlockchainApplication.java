@@ -21,7 +21,8 @@ public class BlockchainApplication {
     @PostConstruct
     public void listen() {
         web3j.transactionFlowable().subscribe(tx -> {
-            logger.info("BlockHash: {}, BlockNumber:{},Input: {}, Creates: {}, Gas: {}, Hash: {}", tx.getBlockHash(), tx.getBlockNumber(), tx.getInput(), tx.getCreates(), tx.getGas(), tx.getHash());
+            logger.info("BlockHash: {}, BlockNumber:{},Input: {}, Creates: {}, Gas: {}, Hash: {}", tx.getBlockHash(),
+                    tx.getBlockNumber(), tx.getInput(), tx.getCreates(), tx.getGas(), tx.getHash());
         });
     }
 }

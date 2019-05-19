@@ -6,7 +6,7 @@ package com.cqupt.bear.blockchain.common.utils;
  */
 public class StringUtils {
     public static String removeFirstAndLast(String s) {
-        s = s.substring(1, s.length());
+        s = s.substring(1);
         s = s.substring(0, s.length() - 1);
         return s;
     }

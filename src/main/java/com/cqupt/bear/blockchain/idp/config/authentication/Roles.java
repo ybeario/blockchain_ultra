@@ -6,6 +6,6 @@ package com.cqupt.bear.blockchain.idp.config.authentication;
  * 类说明
  */
 public enum Roles {
-    ADMIN, OFFICER, USER;
+    ADMIN, OFFICER, USER
 
 }

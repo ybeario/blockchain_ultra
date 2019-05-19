@@ -26,7 +26,7 @@ public class ContractService {
     private Credentials credentials;
 
     public Evidence deployContract(String password, String evidenceName, String hash, String secretKey,
-                                  Credentials owner, Credentials admin
+                                   Credentials owner, Credentials admin
     ) throws Exception {
         Evidence evidence = Evidence.deploy(web3j, owner, gasProvider, evidenceName, hash, secretKey,
                 admin.getAddress()).sendAsync().get();

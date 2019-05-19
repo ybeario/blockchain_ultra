@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     EvidenceService evidenceService;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @ResponseBody
     @GetMapping("/giveRightTo")
     public String giveRightTo(@RequestParam String contractAddress) {
         String message = null;
 
-            message = evidenceService.giveRightToResearcher(contractAddress);
+        message = evidenceService.giveRightToResearcher(contractAddress);
 
         return message;
     }

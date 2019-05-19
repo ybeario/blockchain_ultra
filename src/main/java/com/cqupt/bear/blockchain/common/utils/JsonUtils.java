@@ -2,11 +2,21 @@ package com.cqupt.bear.blockchain.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class JsonUtils {
 
@@ -92,11 +102,11 @@ public class JsonUtils {
             String key = entry.getKey();
             Object value = entry.getValue();
             if (value instanceof JsonArray)
-                map.put((String) key, toList((JsonArray) value));
+                map.put(key, toList((JsonArray) value));
             else if (value instanceof JsonObject)
-                map.put((String) key, toMap((JsonObject) value));
+                map.put(key, toMap((JsonObject) value));
             else
-                map.put((String) key, value);
+                map.put(key, value);
         }
         return map;
     }
