@@ -1,5 +1,6 @@
 package com.cqupt.bear.blockchain.evidence.web;
 
+import com.cqupt.bear.blockchain.evidence.dto.GivenRightResult;
 import com.cqupt.bear.blockchain.evidence.service.EvidenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +26,16 @@ public class AdminController {
     // @ResponseBody
     @PostMapping("/giveRightTo")
     public ModelAndView giveRightTo(String contractAddress, String researcherAccount, ModelAndView modelAndView) {
-        String message = null;
-
-        message = evidenceService.giveRightToResearcher(contractAddress);
-        System.out.println(contractAddress + "+" + researcherAccount + "+" + message);
-        modelAndView.addObject("message", message);
-        modelAndView.setViewName("admin/authorizationSuccess");
+        if (!researcherAccount.equals("researcher")) {
+            modelAndView.addObject("error", "被授权账户异常");
+            modelAndView.setViewName("admin/rightsManagement");
+        } else {
+            GivenRightResult result = evidenceService.giveRightToResearcher(contractAddress);
+            modelAndView.addObject("admin", result.getAdmin());
+            modelAndView.addObject("researcher", result.getResearcher());
+            modelAndView.addObject("contractAddress", result.getContractAddress());
+            modelAndView.setViewName("admin/authorizationSuccess");
+        }
         return modelAndView;
     }
 }

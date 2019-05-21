@@ -13,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -30,37 +32,53 @@ public class ResearcherController {
     @Autowired
     EvidenceService evidenceService;
     private Logger logger = LoggerFactory.getLogger(getClass());
+    private String key;
+    private String name;
+    private String researcher;
 
-    @ResponseBody
     @PostMapping("/acquireKey")
-    public List<Evidence.AnalyzingEventResponse> acquireSecretKey(@RequestParam String contractAddress) {
+    public ModelAndView acquireSecretKey(String contractAddress, ModelAndView modelAndView) {
+        acquireObjects(contractAddress);
+        modelAndView.addObject("key", key);
+        modelAndView.addObject("name", name);
+        modelAndView.addObject("contractAddress", contractAddress);
+        modelAndView.addObject("researcher", researcher);
+        modelAndView.setViewName("researcher/returnKey");
+        return modelAndView;
+    }
+
+    private void acquireObjects(String contractAddress) {
         List<Evidence.AnalyzingEventResponse> analyzingEventResponses =
                 null;
-
         analyzingEventResponses = evidenceService.acquireSecretKey(contractAddress);
-
-        return analyzingEventResponses;
+        analyzingEventResponses.forEach((response) -> {
+            key = response.key;
+            name = response.name;
+            researcher = response.user;
+        });
     }
 
     @ResponseBody
     @PostMapping("/uploadResult")
     public String uploadResult(String result, String secretKey, String contractAddress) {
-
         evidenceService.uploadAnalysisResult(contractAddress, result, secretKey);
-
-
         return "结果上传成功";
     }
 
+
     @PostMapping("/acquireEvidence")
-    public ResponseEntity<byte[]> acquireEvidence(String contractAddress) throws Exception {
+    public ResponseEntity<byte[]> acquireEvidence(String contractAddress, String password,
+                                                  HttpServletResponse response) throws Exception {
+        if (!password.equals(key)) {
+            response.sendRedirect("/researcher/acquireEvidencePage?error=true");
+        }
         String folder =
                 System.getProperty("user.dir") + System.getProperty("file.separator") + "evidences" + System.getProperty("file.separator") + contractAddress;
         File file = new File(folder);
         File[] files = file.listFiles();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentDispositionFormData("attachment",
-                new String(files[0].getName().getBytes("UTF-8"), "iso-8859-1"));
+                new String(files[0].getName().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(files[0]),
                 headers, HttpStatus.CREATED);
