@@ -29,6 +29,7 @@
                     <a class="nav-link" href="#venue"><b>白皮书</b></a>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#">区块链</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">退出</a></li>
             </ul>
         </div>
         <div class="row">
@@ -56,14 +57,31 @@
                     <div class="col-lg-3 col-6 p-4">
                         <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
                         <h4>
-                            <b>合约地址</b>
+                            <b>admin</b>
                         </h4>
-                        <p th:text="${message}" class="text-success"></p>
+                        <p class="text-success" th:text="${admin}"></p>
                     </div>
+                    <div class="col-lg-3 col-6 p-4">
+                        <i class="fa fa-arrow-right"></i>
+                    </div>
+                    <div class="col-lg-3 col-6 p-4">
+                        <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
+                        <h4>
+                            <b>证据编号</b>
+                        </h4>
+                        <p class="text-success" th:text="${contractAddress}"></p>
+                    </div>
+                    <div class="col-lg-3 col-6 p-4 fa fa-arrow-right">
 
-
+                    </div>
+                    <div class="col-lg-3 col-6 p-4">
+                        <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
+                        <h4>
+                            <b>researcher</b>
+                        </h4>
+                        <p class="text-success" th:text="${researcher}"></p>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

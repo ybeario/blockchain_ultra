@@ -1,5 +1,6 @@
 package com.cqupt.bear.blockchain.evidence.service;
 
+import com.cqupt.bear.blockchain.evidence.dto.GivenRightResult;
 import com.cqupt.bear.blockchain.evidence.model.Evidence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +58,9 @@ public class EvidenceService {
         return evidence;
     }
 
-    public String giveRightToResearcher(String contractAddress) {
+    public GivenRightResult giveRightToResearcher(String contractAddress) {
         Evidence evidence = Evidence.load(contractAddress, web3j, defaultAdmin, gasProvider);
+        GivenRightResult result = new GivenRightResult();
         try {
             evidence.giveRightToResearcher(researcher.getAddress()).sendAsync().get();
         } catch (InterruptedException e) {
@@ -68,7 +70,10 @@ public class EvidenceService {
         }
         logger.info("Admin: {}  授权证据编号 {}  -->  Researcher: {}", defaultAdmin.getAddress(), contractAddress,
                 researcher.getAddress());
-        return defaultAdmin.getAddress() + "Authorize To" + researcher.getAddress();
+        result.setAdmin(defaultAdmin.getAddress());
+        result.setContractAddress(contractAddress);
+        result.setResearcher(researcher.getAddress());
+        return result;
     }
 
     public List<Evidence.AnalyzingEventResponse> acquireSecretKey(String contractAddress) {
