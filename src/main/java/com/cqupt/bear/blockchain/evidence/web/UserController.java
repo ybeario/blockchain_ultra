@@ -43,6 +43,10 @@ public class UserController {
     @Qualifier("web3jBlockServiceImpl")
     private BlockService service;
 
+    private String user;
+    private String result;
+    private String name;
+
     //  @PostMapping("/file")
     public ModelAndView upload(MultipartFile evidence, ModelAndView modelAndView, String identityCard, String telephone,
                                String email) throws IllegalStateException, IOException {
@@ -166,15 +170,24 @@ public class UserController {
         return modelAndView;
     }
 
-    @ResponseBody
-    @GetMapping("/getResult")
-    public List<Evidence.AcquireResultEventResponse> getEvidenceResult(@RequestParam String contractAddress) {
+
+    @PostMapping("/getResult")
+    public ModelAndView getEvidenceResult(String contractAddress,
+                                          ModelAndView modelAndView) {
         List<Evidence.AcquireResultEventResponse> acquireResultEventResponses =
                 null;
-
         acquireResultEventResponses = evidenceService.acquireAnalysisResult(contractAddress);
-
-        return acquireResultEventResponses;
+        acquireResultEventResponses.forEach((response) -> {
+            result = response.analysisResult;
+            user = response.user;
+            name = response.name;
+        });
+        modelAndView.addObject("analysisResult", result);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("contractAddress", contractAddress);
+        modelAndView.addObject("evidenceName", name);
+        modelAndView.setViewName("user/analysisResult");
+        return modelAndView;
     }
 
     @ResponseBody
