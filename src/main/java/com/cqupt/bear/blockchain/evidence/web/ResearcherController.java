@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,11 +57,12 @@ public class ResearcherController {
         });
     }
 
-    @ResponseBody
+    //@ResponseBody
     @PostMapping("/uploadResult")
-    public String uploadResult(String result, String secretKey, String contractAddress) {
+    public ModelAndView uploadResult(String result, String secretKey, String contractAddress, ModelAndView modelAndView) {
         evidenceService.uploadAnalysisResult(contractAddress, result, secretKey);
-        return "结果上传成功";
+        modelAndView.setViewName("/researcher/uploadSuccess");
+        return modelAndView;
     }
 
 
