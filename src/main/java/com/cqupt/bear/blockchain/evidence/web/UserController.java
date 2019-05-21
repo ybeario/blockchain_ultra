@@ -93,12 +93,12 @@ public class UserController {
             e.printStackTrace();
         }
         if (transaction != null) {
-            modelAndView.addObject("from",transaction.getResult().getFrom().toUpperCase());
+            modelAndView.addObject("from", transaction.getResult().getFrom().toUpperCase());
             modelAndView.addObject("gas", transaction.getResult().getGas());
-            modelAndView.addObject("height",transaction.getResult().getBlockNumber().toString().toUpperCase());
-            modelAndView.addObject("blockHash",transaction.getResult().getBlockHash().toUpperCase());
-            modelAndView.addObject("hash",transaction.getResult().getHash());
-            modelAndView.addObject("gasPrice",transaction.getResult().getGasPrice());
+            modelAndView.addObject("height", transaction.getResult().getBlockNumber().toString().toUpperCase());
+            modelAndView.addObject("blockHash", transaction.getResult().getBlockHash().toUpperCase());
+            modelAndView.addObject("hash", transaction.getResult().getHash());
+            modelAndView.addObject("gasPrice", transaction.getResult().getGasPrice());
             modelAndView.setViewName("user/queryTxResult");
         }
         return modelAndView;
@@ -121,9 +121,13 @@ public class UserController {
         Evidence result = evidenceService.deployContract("123456", evidence.getOriginalFilename(), hash, secretKey);
         Optional<TransactionReceipt> tr = result.getTransactionReceipt();
 
-        System.out.println(result.getContractAddress());
-        modelAndView.addObject("height",tr.get().getBlockNumber().toString());
-        modelAndView.addObject("transactionsHash",tr.get().getTransactionHash());
+        String folder =
+                System.getProperty("user.dir") + System.getProperty("file.separator") + "evidences" + System.getProperty("file.separator") + result.getContractAddress();
+        File localFile = new File(folder, evidence.getOriginalFilename());
+        localFile.getParentFile().mkdirs();
+        evidence.transferTo(localFile);
+        modelAndView.addObject("height", tr.get().getBlockNumber().toString());
+        modelAndView.addObject("transactionsHash", tr.get().getTransactionHash());
         modelAndView.addObject("md5", hash);
         modelAndView.addObject("contractAddress", result.getContractAddress());
         modelAndView.addObject("evidenceName", "证据'" + evidence.getOriginalFilename() + "'上传成功！");

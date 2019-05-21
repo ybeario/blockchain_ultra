@@ -48,7 +48,7 @@
         <div class="mx-auto col-lg-6 col-10">
           <h1>提取完整证据</h1>
           <p class="mb-3">请确认您您所需提取证据的数据库与区块ID</p>
-          <form class="text-left" method="post">
+          <form class="text-left" method="post" th:action="@{/researcher/acquireEvidence}">
             <div class="form-row">
               <div class="form-group col-md-12"> <label for="form19">请选择存储</label>
                   <select class="selectpicker show-tick" data-live-search="true" data-size="5" title="请选择一项">
@@ -58,10 +58,11 @@
                   <option value="D">可信数据库3</option>
                 </select>
               </div>
-                <div class="form-group col-md-12"><label for="form19">区块ID</label> <input class="form-control"
-                                                                                          id="form19" name="password"
+                <div class="form-group col-md-12"><label for="form19">证据编号</label> <input class="form-control"
+                                                                                          id="form19"
+                                                                                          name="contractAddress"
                                                                                           placeholder="0x"
-                                                                                          type="password"></div>
+                                                                                          type="text"></div>
                 <div class="form-group col-md-12"><label for="form19">请输入库密钥</label> <input class="form-control"
                                                                                             id="form19" name="password"
                                                                                             type="password"></div>
