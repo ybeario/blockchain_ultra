@@ -176,6 +176,7 @@ public class UserController {
                                           ModelAndView modelAndView) {
         List<Evidence.AcquireResultEventResponse> acquireResultEventResponses =
                 null;
+
         acquireResultEventResponses = evidenceService.acquireAnalysisResult(contractAddress);
         acquireResultEventResponses.forEach((response) -> {
             result = response.analysisResult;
