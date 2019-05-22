@@ -43,41 +43,35 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>证据名称</b>
                 </h4>
                 <p th:text="${evidenceName}" class="text-success"></p>
             </div>
-            <div class="col-lg-3 col-6 p-4">
-
-            </div>
-            <div class="col-lg-3 col-6 p-4 ">
+            <div class="col-lg-6 col-6 p-4 ">
                 <i class="d-block fa fa-stop-circle-o fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>证据ID</b>
                 </h4>
-                <p th:text="${contractAddress}" class="text-success"></p>
+                <p class="text-success text-uppercase" th:text="${contractAddress}"></p>
             </div>
         </div>
         <div class="row justify-content-center ">
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-circle-o fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>分析结果</b>
                 </h4>
                 <p th:text="${analysisResult}" class="text-success"></p>
             </div>
-            <div class="col-lg-3 col-6 p-4">
-
-            </div>
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-stop-circle fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>查询者</b>
                 </h4>
-                <p th:text="${user}" class="text-success"></p>
+                <p class="text-success text-uppercase" th:text="${user}"></p>
             </div>
         </div>
     </div>

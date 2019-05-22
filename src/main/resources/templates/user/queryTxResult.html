@@ -43,34 +43,30 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>提交者钱包</b>
                 </h4>
-                <p th:text="${from}" class="text-success"></p>
+                <p class="text-success text-uppercase" th:text="${from}"></p>
             </div>
-            <div class="col-lg-3 col-6 p-4">
 
-            </div>
-            <div class="col-lg-3 col-6 p-4 ">
+            <div class="col-lg-6 col-6 p-4 ">
                 <i class="d-block fa fa-stop-circle-o fa-3x mb-2 text-muted"></i>
-                <h4>交易Gas</h4>
+                <h4><b>交易Gas</b></h4>
                 <p th:text="${gas}" class="text-success"></p>
             </div>
         </div>
         <div class="row justify-content-center ">
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-circle-o fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>BlockHash</b>
                 </h4>
-                <p th:text="${blockHash}" class="text-success"></p>
+                <p class="text-success text-uppercase" th:text="${blockHash}"></p>
             </div>
-            <div class="col-lg-3 col-6 p-4">
 
-            </div>
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-stop-circle fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>区块高度</b>
@@ -79,22 +75,19 @@
             </div>
         </div>
         <div class="row justify-content-center ">
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-circle-o fa-3x mb-2 text-muted"></i>
                 <h4>
-                    <b>gasPrice</b>
+                    <b>GasPrice</b>
                 </h4>
                 <p th:text="${gasPrice}" class="text-success"></p>
             </div>
-            <div class="col-lg-3 col-6 p-4">
-
-            </div>
-            <div class="col-lg-3 col-6 p-4">
+            <div class="col-lg-6 col-6 p-4">
                 <i class="d-block fa fa-stop-circle fa-3x mb-2 text-muted"></i>
                 <h4>
                     <b>交易Hash</b>
                 </h4>
-                <p th:text="${hash}" class="text-success"></p>
+                <p class="text-success text-uppercase" th:text="${hash}"></p>
             </div>
         </div>
     </div>

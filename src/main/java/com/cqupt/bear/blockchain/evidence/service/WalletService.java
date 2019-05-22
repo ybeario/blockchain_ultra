@@ -13,6 +13,7 @@ import org.web3j.protocol.core.methods.response.EthCoinbase;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.http.HttpService;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -29,9 +30,12 @@ public class WalletService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public String generateWallet(String password) throws Exception {
-        //创建或读取账户
-        //String adminPath = System.getProperty("user.dir") + System.getProperty("file.separator") + "admin";
-        String wallet = WalletUtils.generateLightNewWalletFile(password, null);
+        String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "accounts";
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String wallet = WalletUtils.generateLightNewWalletFile(password, file);
         logger.info("Wallet 创建成功:{}", wallet);
         return wallet;
     }
