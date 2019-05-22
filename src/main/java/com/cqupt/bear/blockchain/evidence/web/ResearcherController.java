@@ -72,7 +72,7 @@ public class ResearcherController {
             response.sendRedirect("/researcher/acquireEvidencePage?error=true");
         }
         String folder =
-                System.getProperty("user.dir") + System.getProperty("file.separator") + "evidences" + System.getProperty("file.separator") + contractAddress;
+                System.getProperty("user.dir") + System.getProperty("file.separator") + "evidences" + System.getProperty("file.separator") + contractAddress.toLowerCase();
         File file = new File(folder);
         File[] files = file.listFiles();
         HttpHeaders headers = new HttpHeaders();
