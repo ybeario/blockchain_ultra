@@ -52,32 +52,39 @@
             <div class="mx-auto col-lg-6 col-10">
                 <h1>授权成功</h1>
                 <p class="mb-3">我们承诺保障您的电子证据安全，可靠，不可篡改，同时为您的隐私提供全方位保护</p>
-
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-6 p-4 ">
+                        <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
+                        <h4>
+                            <p>Admin</p>
+                        </h4>
+                        <p class="text-success" th:text="${admin}"></p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-6 p-4">
+                        <i class="fa fa-arrow-down"></i>
+                    </div>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-3 col-6 p-4">
                         <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
                         <h4>
-                            <b>admin</b>
-                        </h4>
-                        <p class="text-success" th:text="${admin}"></p>
-                    </div>
-                    <div class="col-lg-3 col-6 p-4">
-                        <i class="fa fa-arrow-right"></i>
-                    </div>
-                    <div class="col-lg-3 col-6 p-4">
-                        <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
-                        <h4>
-                            <b>证据编号</b>
+                            <p>证据ID</p>
                         </h4>
                         <p class="text-success" th:text="${contractAddress}"></p>
                     </div>
-                    <div class="col-lg-3 col-6 p-4 fa fa-arrow-right">
-
-                    </div>
+                </div>
+                <div class="row justify-content-center">
                     <div class="col-lg-3 col-6 p-4">
+                        <i class="fa fa-arrow-down"></i>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-6 p-4 ">
                         <i class="d-block fa fa-circle fa-3x mb-2 text-muted"></i>
                         <h4>
-                            <b>researcher</b>
+                            <p>Researcher</p>
                         </h4>
                         <p class="text-success" th:text="${researcher}"></p>
                     </div>
