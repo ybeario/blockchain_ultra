@@ -46,8 +46,11 @@ public class EvidenceService {
         return contractService.deployContract(password, evidenceName, hash, secretKey, owner, defaultAdmin);
     }
 
-
+    public String toLowwerCase(String contractAddress) {
+        return contractAddress.toLowerCase();
+    }
     public Evidence queryEvidenceInfo(String contractAddress) throws Exception {
+        contractAddress = toLowwerCase(contractAddress);
         Credentials user = loadWallet("123456");
         Evidence evidence = loadContract(contractAddress, user);
         String info = null;
@@ -59,6 +62,7 @@ public class EvidenceService {
     }
 
     public GivenRightResult giveRightToResearcher(String contractAddress) {
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, defaultAdmin, gasProvider);
         GivenRightResult result = new GivenRightResult();
         try {
@@ -77,7 +81,7 @@ public class EvidenceService {
     }
 
     public List<Evidence.AnalyzingEventResponse> acquireSecretKey(String contractAddress) {
-
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, researcher, gasProvider);
         List<Evidence.AnalyzingEventResponse> analyzingEvents = null;
         try {
@@ -97,6 +101,7 @@ public class EvidenceService {
     }
 
     public void uploadAnalysisResult(String contractAddress, String result, String secretKey) {
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, researcher, gasProvider);
         try {
             evidence.uploadAnalysisResult(result, contractAddress, secretKey).sendAsync().get();
@@ -110,6 +115,7 @@ public class EvidenceService {
 
 
     public List<Evidence.AcquireResultEventResponse> acquireAnalysisResult(String contractAddress) {
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, owner, gasProvider);
         List<Evidence.AcquireResultEventResponse> acquireResultEvents = null;
         try {
@@ -134,14 +140,15 @@ public class EvidenceService {
 
 
     public List<Evidence.OwnerApprovedEventResponse> approved(String contractAddress) {
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, owner, gasProvider);
         List<Evidence.OwnerApprovedEventResponse> ownerApprovedEvents = null;
         try {
             TransactionReceipt receipt = evidence.approve().sendAsync().get();
             evidence.getOwnerApprovedEvents(receipt).forEach((ownerApprovedEventResponse) -> {
-                logger.info("调用者: {}, 是否赞同: {}, 证据编号: {}", ownerApprovedEventResponse.user,
-                        ownerApprovedEventResponse.approve,
-                        contractAddress);
+                logger.info("调用者: {}, 是否赞同: {}", ownerApprovedEventResponse.user,
+                        ownerApprovedEventResponse.approve
+                );
             });
             ownerApprovedEvents = evidence.getOwnerApprovedEvents(receipt);
         } catch (InterruptedException e) {
@@ -153,6 +160,7 @@ public class EvidenceService {
     }
 
     public void resetKey(String contractAddress, String key) {
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, owner, gasProvider);
         try {
             evidence.resetKey(key).sendAsync().get();
@@ -166,13 +174,15 @@ public class EvidenceService {
 
 
     public Evidence loadContract(String contractAddress, Credentials credentials) throws IOException {
+        contractAddress = toLowwerCase(contractAddress);
         Evidence evidence = Evidence.load(contractAddress, web3j, credentials, gasProvider);
         logger.info("证据编号 {} 加载成功: {}", evidence.getContractAddress(), evidence.isValid());
         return evidence;
     }
 
     private Credentials loadWallet(String password) throws Exception {
-        String wallet = walletService.generateWallet(password);
+        String wallet =
+                System.getProperty("user.dir") + System.getProperty("file.separator") + "accounts" + System.getProperty("file.separator") + walletService.generateWallet(password);
         Credentials credentials = walletService.getCredentials(password, wallet);
         walletService.transferCoins(credentials);
         //  logger.info("Credentials loaded: wallet={}, address={}", wallet, credentials.getAddress());

@@ -57,11 +57,10 @@ public class ResearcherController {
         });
     }
 
-    //@ResponseBody
     @PostMapping("/uploadResult")
     public ModelAndView uploadResult(String result, String secretKey, String contractAddress, ModelAndView modelAndView) {
         evidenceService.uploadAnalysisResult(contractAddress, result, secretKey);
-        modelAndView.setViewName("/researcher/uploadSuccess");
+        modelAndView.setViewName("researcher/uploadSuccess");
         return modelAndView;
     }
 
