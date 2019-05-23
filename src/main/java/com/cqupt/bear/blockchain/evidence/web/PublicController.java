@@ -24,7 +24,8 @@ public class PublicController {
     @GetMapping(value = "/preview")
     public void pdfStreamHandler(HttpServletResponse response, String fileName) {
         logger.info(fileName);
-        String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "solidity.pdf";
+        String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "CQUPT-WhiteBook-V1.2" +
+                ".pdf";
         File file = new File(path);
         if (file.exists()) {
             byte[] data = null;
