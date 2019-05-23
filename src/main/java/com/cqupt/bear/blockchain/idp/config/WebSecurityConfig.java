@@ -25,12 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").successHandler(successHandler).failureHandler(failureHandler)
-                .loginProcessingUrl("/authentication/form").permitAll().and().authorizeRequests()
-                .antMatchers("/login", "/assets/**", "/css/**", "/js/**", "/index", "/register", "/logout").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/login", "/assets/**", "/css/**", "/js/**", "/index", "/register", "/logout",
+                        "/preview", "/pdfJS/**", "/about", "previewPPT").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/researcher/**").hasRole("OFFICER")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "OFFICER", "USER").anyRequest().authenticated().and()
-                .headers().frameOptions().disable().and().logout().logoutUrl("/logout")
+                .headers().frameOptions().disable().and().formLogin().loginPage("/login").successHandler(successHandler).failureHandler(failureHandler)
+                .loginProcessingUrl("/authentication/form").permitAll().and().logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/login").permitAll().and().csrf().disable();
 
     }
