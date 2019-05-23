@@ -21,11 +21,14 @@ public class PublicController {
     /**
      * 预览pdf文件
      */
-    @GetMapping(value = "/preview")
+    @GetMapping("/preview")
     public void pdfStreamHandler(HttpServletResponse response, String fileName) {
         logger.info(fileName);
-        String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "CQUPT-WhiteBook-V1.2" +
-                ".pdf";
+        String path = System.getProperty("user.dir") + System.getProperty("file.separator") + fileName;
+        outputStresam(response, path);
+    }
+
+    private void outputStresam(HttpServletResponse response, String path) {
         File file = new File(path);
         if (file.exists()) {
             byte[] data = null;
