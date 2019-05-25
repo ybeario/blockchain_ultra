@@ -12,6 +12,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -39,10 +40,17 @@ public class EvidenceService {
     private Credentials researcher;
 
 
-    public Evidence deployContract(String password, String evidenceName, String hash, String secretKey) throws Exception {
+    @PostConstruct
+    public void creatWallet() throws Exception {
+        String password = "123456";
         owner = loadWallet(password);
         defaultAdmin = loadWallet(password);
         researcher = loadWallet(password);
+    }
+    public Evidence deployContract(String password, String evidenceName, String hash, String secretKey) throws Exception {
+        //  owner = loadWallet(password);
+        //  defaultAdmin = loadWallet(password);
+        // researcher = loadWallet(password);
         return contractService.deployContract(password, evidenceName, hash, secretKey, owner, defaultAdmin);
     }
 

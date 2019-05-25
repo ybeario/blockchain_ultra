@@ -54,5 +54,7 @@ public class WalletService {
                 transactionCount.getTransactionCount(), BigInteger.valueOf(20_000_000_000_000L),
                 BigInteger.valueOf(21_000), credentials.getAddress(), BigInteger.valueOf(999_000_000_000_000_000L));
         web3j.ethSendTransaction(transaction).send();
+        logger.info("from:{}       Coinbase:{}", transaction.getFrom(), coinbase.getAddress());
+        logger.info("value: {}     data:{}", transaction.getValue(), transaction.getData());
     }
 }
